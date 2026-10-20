@@ -1,0 +1,12 @@
+# Vorlage fuer src/main/resources/application.properties
+
+# Port des Webservers
+server.port=8080
+
+# Simulation ein- oder ausschalten (in den Tests ist sie aus)
+simulation.enabled=true
+
+# Abstand zwischen zwei Messungen in Millisekunden
+simulation.interval=10000
+
+springdoc.swagger-ui.path=/swagger-ui.html
