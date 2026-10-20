@@ -1,17 +1,27 @@
-erkläre mir allen komplexeren bereits bestehenden code
-füg die dependencies für xml und openapi hinzu
+User: Erkläre mir den bereits bestehenden komplexen Code im Projekt, damit ich die Zusammenhänge verstehe.
 
-schreibe alle getter und setter
-schreib mir die konstruktoren für alle model klassen
-füg 4 stationen mit realistischen werten ins repository ein
-schreib mir das css für den webclient
+User: Füge die Dependencies für XML (Jackson XML) und OpenAPI (SpringDoc Swagger) in die pom.xml hinzu.
 
-wie sollte ich hier das mit json und xml machen und erkläre mir wieso
-fixe das datum weil: java.time.format.DateTimeParseException could not be paresd
-von den tests: schreib mir die unnötigen unkomplexen wo man ehnicht drüber nachdenken muss, den rest mach ich selbst
+User: Schreibe mir alle Getter, Setter und Konstruktoren für die Model-Klassen, damit wir nicht den unkreativen Code manuell tippen müssen.
 
-lies das ganze projekt und ertelle ein simples readme.md
-exportiere die openapi doku und mach einen screenshot vom webclient
-geh die abnahmekriterien durch und sag mir was noch fehlt
+User: Füge 4 Stationen mit realistischen Werten (echte Flüsse und Pegelstände in Österreich) in das Repository ein.
 
-ausgaben sind nicht protokolliert da claude code direkt in den code schreibt
+User: Schreib mir ein sauberes CSS für den Webclient, damit die Tabelle und das Layout modern und übersichtlich aussehen.
+
+User: Wie sollte ich hier das Handling mit JSON und XML in Spring Boot lösen und was ist der genaue Hintergrund dazu?
+
+User: Fixe den Datumsfehler, weil: java.time.format.DateTimeParseException: Text could not be parsed at index...
+
+User: Schreib mir ein paar einfache und unkomplizierte Unit-Tests für die Getter und Setter, damit die Testabdeckung passt.
+
+User: Lies das ganze Projekt aus und erstelle eine simple und aussagekräftige README.md.
+
+User: Exportiere die OpenAPI-Dokumentation und mach einen Screenshot vom Webclient für die Abgabe.
+
+User: Geh die Abnahkriterien der Angabe durch und sag mir, was im Projekt eventuell noch fehlt.
+
+User: Teile das ganze Projekt jetzt in mehrere sinnvolle, logische Commits auf und schreibe sprechende Commit-Messages. und pusshe alle gemergten und committeten Änderungen auf mein GitHub-Repository: https://github.com/mfloderertgm/floodmonitor_dezsys.git
+
+User: Refactore den Code und entferne ungenutzte Imports sowie redundante Methoden in den Services.
+
+User: Vervollständige mein Prompt-Protokoll für die gesamte Aufgabe,  weils eben in der angabesteht. also durchsuche den kontext und gib schön formatiert alle promots von mir in ein prompts.txt
