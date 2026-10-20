@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FloodMonitor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>FloodMonitor</h1>
+        <p>Hochwasser-Frühwarnsystem</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Station und Filter</h2>
+            <div class="filters">
+                <label>Station
+                    <select id="station"></select>
+                </label>
+                <label>Von
+                    <input type="datetime-local" id="from">
+                </label>
+                <label>Bis
+                    <input type="datetime-local" id="to">
+                </label>
+                <label>Warnstufe
+                    <select id="warningLevel">
+                        <option value="">Alle</option>
+                        <option>NORMAL</option>
+                        <option>WARNING</option>
+                        <option>CRITICAL</option>
+                        <option>UNKNOWN</option>
+                    </select>
+                </label>
+                <label>Limit
+                    <input type="number" id="limit" value="50">
+                </label>
+                <label>Format
+                    <select id="format">
+                        <option value="json">JSON</option>
+                        <option value="xml">XML</option>
+                    </select>
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" id="autoRefresh" checked>
+                    Automatisch aktualisieren (10 s)
+                </label>
+                <button id="refresh">Aktualisieren</button>
+            </div>
+            <p id="statusLine"></p>
+            <p id="errorLine"></p>
+        </section>
+
+        <section>
+            <h2>Aktuellster Messwert</h2>
+            <div id="latest" class="cards"></div>
+        </section>
+
+        <section>
+            <h2>Aktuelle Warnungen</h2>
+            <ul id="alerts"></ul>
+        </section>
+
+        <section>
+            <h2>Statistik</h2>
+            <div id="statistics" class="cards"></div>
+        </section>
+
+        <section>
+            <h2>Historische Messwerte</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Station</th>
+                        <th>Zeitpunkt</th>
+                        <th>Wasserstand</th>
+                        <th>Durchfluss</th>
+                        <th>Niederschlag</th>
+                        <th>Akku</th>
+                        <th>Status</th>
+                        <th>Warnstufe</th>
+                    </tr>
+                </thead>
+                <tbody id="history"></tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <a href="swagger-ui.html">API-Dokumentation (Swagger UI)</a>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
