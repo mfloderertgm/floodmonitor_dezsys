@@ -1,0 +1,823 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "FloodMonitor API",
+        "description": "REST-Schnittstelle des Hochwasser-Frühwarnsystems. Alle Endpunkte liefern JSON oder XML, je nach Accept-Header. Authentifizierung: keine. Die API bietet nur lesende GET-Endpunkte an, deshalb ist kein Login und kein API-Key nötig.",
+        "version": "v1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/api/v1/stations": {
+            "get": {
+                "tags": [
+                    "Stationen"
+                ],
+                "summary": "Alle Messstationen abrufen, optional gefiltert",
+                "operationId": "getStations",
+                "parameters": [
+                    {
+                        "name": "river",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isActive",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "warningLevel",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Not Acceptable",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Station"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Station"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stations/{stationId}": {
+            "get": {
+                "tags": [
+                    "Stationen"
+                ],
+                "summary": "Einzelne Station abrufen",
+                "operationId": "getStation",
+                "parameters": [
+                    {
+                        "name": "stationId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Not Acceptable",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Station"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Station"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stations/{stationId}/statistics": {
+            "get": {
+                "tags": [
+                    "Messwerte"
+                ],
+                "summary": "Statistik über die Messwerte einer Station",
+                "operationId": "getStatistics",
+                "parameters": [
+                    {
+                        "name": "stationId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Not Acceptable",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Statistics"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Statistics"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stations/{stationId}/measurements": {
+            "get": {
+                "tags": [
+                    "Messwerte"
+                ],
+                "summary": "Historische Messwerte abrufen, neueste zuerst",
+                "description": "from und to im Format ISO-8601 (z.B. 2026-05-01T08:00:00Z), limit von 1 bis 1000",
+                "operationId": "getHistory",
+                "parameters": [
+                    {
+                        "name": "stationId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "warningLevel",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Not Acceptable",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Measurement"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Measurement"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/stations/{stationId}/measurements/latest": {
+            "get": {
+                "tags": [
+                    "Messwerte"
+                ],
+                "summary": "Aktuellsten Messwert einer Station abrufen",
+                "operationId": "getLatest",
+                "parameters": [
+                    {
+                        "name": "stationId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Not Acceptable",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Measurement"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Measurement"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/alerts": {
+            "get": {
+                "tags": [
+                    "Warnungen"
+                ],
+                "summary": "Aktuelle Warnungen abrufen (Stationen mit WARNING oder CRITICAL)",
+                "operationId": "getAlerts",
+                "parameters": [
+                    {
+                        "name": "warningLevel",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "river",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Method Not Allowed",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Not Acceptable",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Alert"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Alert"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "error": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "path": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Location": {
+                "type": "object",
+                "properties": {
+                    "latitude": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "Station": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "river": {
+                        "type": "string"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location"
+                    },
+                    "normalWaterLevel": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "warningWaterLevel": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "criticalWaterLevel": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "ONLINE",
+                            "MAINTENANCE",
+                            "OFFLINE"
+                        ]
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Statistics": {
+                "type": "object",
+                "properties": {
+                    "stationId": {
+                        "type": "string"
+                    },
+                    "measurementCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "minWaterLevel": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "maxWaterLevel": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "averageWaterLevel": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "averageFlowRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "rainfallSum": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "warningCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "criticalCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "Measurement": {
+                "type": "object",
+                "properties": {
+                    "stationId": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "waterLevel": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "flowRate": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "rainfall": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "temperature": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "batteryLevel": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "ONLINE",
+                            "MAINTENANCE",
+                            "OFFLINE"
+                        ]
+                    },
+                    "warningLevel": {
+                        "type": "string",
+                        "enum": [
+                            "NORMAL",
+                            "WARNING",
+                            "CRITICAL",
+                            "UNKNOWN"
+                        ]
+                    }
+                }
+            },
+            "Alert": {
+                "type": "object",
+                "properties": {
+                    "stationId": {
+                        "type": "string"
+                    },
+                    "stationName": {
+                        "type": "string"
+                    },
+                    "river": {
+                        "type": "string"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "waterLevel": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "warningLevel": {
+                        "type": "string",
+                        "enum": [
+                            "NORMAL",
+                            "WARNING",
+                            "CRITICAL",
+                            "UNKNOWN"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
