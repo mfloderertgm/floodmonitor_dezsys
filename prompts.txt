@@ -1,0 +1,17 @@
+erkläre mir allen komplexeren bereits bestehenden code
+füg die dependencies für xml und openapi hinzu
+
+schreibe alle getter und setter
+schreib mir die konstruktoren für alle model klassen
+füg 4 stationen mit realistischen werten ins repository ein
+schreib mir das css für den webclient
+
+wie sollte ich hier das mit json und xml machen und erkläre mir wieso
+fixe das datum weil: java.time.format.DateTimeParseException could not be paresd
+von den tests: schreib mir die unnötigen unkomplexen wo man ehnicht drüber nachdenken muss, den rest mach ich selbst
+
+lies das ganze projekt und ertelle ein simples readme.md
+exportiere die openapi doku und mach einen screenshot vom webclient
+geh die abnahmekriterien durch und sag mir was noch fehlt
+
+ausgaben sind nicht protokolliert da claude code direkt in den code schreibt
